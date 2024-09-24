@@ -1,4 +1,5 @@
 export interface IProfile {
+  id: number
   profile: IProfileDetails
   last_login: string
   date_joined: string

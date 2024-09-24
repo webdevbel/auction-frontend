@@ -179,41 +179,6 @@ export const EditLotPage: FC = () => {
     }
   }, [fillMissingOrders, lotData, lotPhotos])
 
-  // useEffect(() => {
-  //   if (categories && categories.length > 0) {
-  //     if (category) {
-  //       const currentCategory = categories.find((cat) => cat.id === category.id || cat.title === category.title)
-  //       if (currentCategory?.children && currentCategory.children.length > 0) {
-  //         setSubCategoriesList(currentCategory.children)
-  //       } else {
-  //         setSubCategoriesList([])
-  //         setSubCategory(undefined)
-  //         setLowerCat(undefined)
-  //       }
-  //     } else if (lotData && categories) {
-  //       const cat = categories.find((cat) => cat.id === lotData.category)
-  //       if (cat) {
-  //         setCategory(cat)
-  //         setSubCategoriesList(cat.children || [])
-  //       } else {
-  //         const subCat = categories.find((cat) => cat.children.some((subCat) => subCat.id === lotData.category))
-  //         if (subCat) {
-  //           setCategory(cat)
-  //           const selectedSubCategory = subCat.children?.find(
-  //             (sc) => sc.id === lotData.category || sc.title === subCategory?.title || sc.id === subCategory?.id
-  //           )
-  //           if (selectedSubCategory) {
-  //             setSubCategory(selectedSubCategory)
-  //           }
-  //         } else {
-  //           setSubCategory(undefined)
-  //           setLowerCat(undefined)
-  //         }
-  //       }
-  //     }
-  //   }
-  // }, [categories, category, lotData, setCategory, setSubCategory, subCategory])
-
   useEffect(() => {
     if (lotData) {
       getCatData(lotData.category)
@@ -371,7 +336,9 @@ export const EditLotPage: FC = () => {
         if (lotData.username !== lotPureData.username) {
           formdata.append('username', String(lotData.username))
         }
-        formdata.append('user', String(lotData.profile.id))
+        if (user) {
+          formdata.append('user', String(user.id))
+        }
 
         if (formdata) {
           await updateLot({ data: formdata, lotId: lotData.id })

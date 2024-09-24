@@ -106,21 +106,21 @@ export const CreateLotPage: FC = () => {
   const lotTypeGroup =
     typeOption === 'SELL'
       ? [
-          {
-            value: 'auction',
-            label: language === 'RU' ? 'Аукцион' : 'Auction'
-          },
-          {
-            value: 'fixPrice',
-            label: language === 'RU' ? 'Фиксированная цена' : 'Fixed price'
-          }
-        ]
+        {
+          value: 'auction',
+          label: language === 'RU' ? 'Аукцион' : 'Auction'
+        },
+        {
+          value: 'fixPrice',
+          label: language === 'RU' ? 'Фиксированная цена' : 'Fixed price'
+        }
+      ]
       : [
-          {
-            value: 'auction',
-            label: language === 'RU' ? 'Аукцион' : 'Auction'
-          }
-        ]
+        {
+          value: 'auction',
+          label: language === 'RU' ? 'Аукцион' : 'Auction'
+        }
+      ]
 
   const countList = [
     { value: 'PIECE', label: language === 'RU' ? 'шт' : 'piece' },
@@ -259,7 +259,7 @@ export const CreateLotPage: FC = () => {
     const auctionEndDate = new Date(parseInt(date.year), parseInt(date.month) - 1, parseInt(date.day), 12, 0, 0)
     const formdata = new FormData()
     if (user) {
-      formdata.append('user', String(user.profile.id))
+      formdata.append('user', String(user.id))
     }
     if (auctionEndDate.getDate() !== parseInt(date.day)) {
       toast(language === 'RU' ? 'Проверьте правильность выбранной даты' : 'Selected incorrect date', { type: 'warning' })
@@ -273,6 +273,8 @@ export const CreateLotPage: FC = () => {
       toast(language === 'RU' ? 'Пожалуйста, укажите область' : 'Please select region', { type: 'warning' })
     } else if (!category) {
       toast(language === 'RU' ? 'Необходимо указать категорию товара' : 'Need to choose category', { type: 'warning' })
+    } else if (!user?.subscription || !user?.subscription.tariff) {
+      toast(language === 'RU' ? 'Отсутствует оплаченный тариф' : 'Update your tarriff plan.', { type: 'warning' })
     } else {
       formdata.append('ad_type', typeOption)
       formdata.append('condition', productState)
@@ -677,12 +679,12 @@ export const CreateLotPage: FC = () => {
                   ? 'Имя Фамилия Отчество'
                   : 'Full name'
                 : user?.profile.type === 'company'
-                ? language === 'RU'
-                  ? 'Название организации'
-                  : 'Company name'
-                : language === 'RU'
-                ? 'Название ИП'
-                : 'Sole-proprietor name'}
+                  ? language === 'RU'
+                    ? 'Название организации'
+                    : 'Company name'
+                  : language === 'RU'
+                    ? 'Название ИП'
+                    : 'Sole-proprietor name'}
             </div>
             <div className="w-full inline-flex gap-[10px] items-center">
               <div className="w-full max-w-[535px]">

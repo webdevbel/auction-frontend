@@ -4,7 +4,7 @@ module.exports = function (app) {
     app.use(
         '/api',
         createProxyMiddleware({
-            target: 'https://auction.magnetica.by',
+            target: 'https://stok777.by',
             changeOrigin: true,
             secure: true,
         }),
