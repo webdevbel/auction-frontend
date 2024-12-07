@@ -39,4 +39,7 @@ export interface IFooter {
   privacy_policy: string
   requisites: string
   user_agreement: string
+  ooo_name: string
+  rules_block_1: string
+  rules_block_2: string
 }

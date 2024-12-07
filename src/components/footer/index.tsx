@@ -13,6 +13,7 @@ import parse from 'html-react-parser'
 export default function Footer({ openModal }: { openModal: () => void }) {
   const { language } = useAppSelector(selectLangSettings)
   const { data: footerData, refetch } = useFetchFooterDataQuery()
+  const year = new Date().getFullYear()  
 
   return (
     <>
@@ -33,7 +34,7 @@ export default function Footer({ openModal }: { openModal: () => void }) {
         </div>
         <div className="flex xl:flex-row flex-col justify-between items-start xl:w-[80%] h-auto w-full gap-[20px]">
           <div className="flex flex-col gap-[6px] xl:max-w-[284px] w-full">
-            <p className="text-sm text-[#1D1E22] font-normal leading-[16.8px]">ООО “Стоковая Биржа”</p>
+            <p className="text-sm text-[#1D1E22] font-normal leading-[16.8px]">{footerData?.ooo_name || "ООО “Стоковая Биржа”"}</p>
             <p className="leading-[20px] font-normal text-sm text-[#808080]">{parse(String(footerData?.requisites))}</p>
             {/* <p className="leading-[20px] font-normal text-sm text-[#808080]">УНП 123456789, Республика Беларусь, 220067, г. Минск, ул. Карла Маркса, 15</p> */}
             {/* <p className="leading-[20px] font-normal text-sm text-[#808080]">Расчетный счет BY58ALFA00100B00011100000000 ЗАО “Альфа-Банк” БИК: ALFABY2X</p> */}
@@ -110,7 +111,7 @@ export default function Footer({ openModal }: { openModal: () => void }) {
                 fill="#D9D9D9"
               />
             </svg>
-            2024, ООО Стоковая Биржа
+            {year}, {footerData?.ooo_name || "ООО Стоковая биржа"}
           </p>
           <a
             className="text-sm font-normal text-[#808080] cursor-pointer no-underline"
